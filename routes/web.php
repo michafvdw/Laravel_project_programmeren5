@@ -20,3 +20,8 @@ Route::get('/', function () {
 Route::get ('/about', function () {
     echo "hello?";
 });
+
+use App\Http\Controllers\UserController;
+
+Route::get('/user/{id}', [UserController::class, 'show']);
+Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']);

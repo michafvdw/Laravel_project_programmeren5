@@ -6,5 +6,9 @@ use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {
-    //
+    public function index()
+    {
+        $title = 'awserdtfg';
+        return view('about', compact('title'));
+    }
 }

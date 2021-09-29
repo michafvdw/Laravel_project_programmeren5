@@ -29,3 +29,7 @@ use App\Http\Controllers\UserController;
 Route::get('/user/{id}', [UserController::class, 'show']);
 Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']);
 //Route::get('/posts2', [PostController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

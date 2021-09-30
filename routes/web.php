@@ -27,7 +27,7 @@ Route::get('/about', [\App\Http\Controllers\AboutController::class, 'index']);
 use App\Http\Controllers\UserController;
 
 Route::get('/user/{id}', [UserController::class, 'show']);
-Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']);
+Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index'])->middleware('auth');
 //Route::get('/posts2', [PostController::class, 'index']);
 
 Auth::routes();

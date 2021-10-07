@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Posts;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -21,13 +21,13 @@ class PostController extends Controller
     {
         $name = 'Mijn posts';
         //get data from the te model
-        $posts = Posts::all();
+        $posts = Post::all();
         //dd($posts);
 
         return view('posts.index', compact('name', 'posts'));
     }
 
-    public function show(Posts $post)
+    public function show(Post $post)
     {
         //dd($Request, $id);
         //dd($post);

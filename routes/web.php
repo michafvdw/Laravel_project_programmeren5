@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ Route::get('/', function () {
     echo "hello?";
 });*/
 
-Route::get('/about', [\App\Http\Controllers\AboutController::class, 'index']);
+Route::get('/about', [AboutController::class, 'index']);
 
 
 use App\Http\Controllers\UserController;
@@ -30,11 +31,16 @@ use App\Http\Controllers\UserController;
 Route::get('/user/{id}', [UserController::class, 'show']);
 Route::get('/posts', [PostController::class, 'index'])->middleware('auth');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+//Route::get('/posts/{category}', [PostController::class, 'category'])->name('posts.category');
+//Route::get('/posts/create', 'PostConroller@create');
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::get('/create', [PostController::class, 'create'])->name('posts.create');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+/*
 Route::get('categories/{category}', function(Category $category) {
     return view('posts', [
         'posts' => $category->posts
@@ -49,5 +55,5 @@ Route::get('title/{title}', function(Title $title) {
         'posts' => $title->posts
     ]);
 
-});
+});*/
 

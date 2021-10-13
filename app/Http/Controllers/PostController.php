@@ -35,6 +35,7 @@ class PostController extends Controller
         return view('posts.post', ['post' => $post]);
     }
 
+    /*
     public function category(Request $Request, $category)
     {
         $category = Post::all().category;
@@ -44,10 +45,31 @@ class PostController extends Controller
 
         return view('posts.category',   ['category' => $category]);
         //return view('posts.post', ['post' => $post]);
-    }
+    }*/
 
     public function create(){
-        return view('posts.create');
+        return view('create');
+    }
+
+    public function store(Request $request)
+    {
+        //this gives us the currently logged in user
+        $user = $request->user();
+
+        //this fetches all the post data from the form
+        //we can post all the data from post and not get an error
+        // because laravel handles this in Post model through fillable array
+        //Laravel will only save the data from the key that is in the fillables array
+        $formData = $request->all();
+
+        // we need a seo bot readable url, this will create a slug based on title
+        $formData['slug'] = str_slug($request->get('title'));
+
+        //this creates posts based on the relation from user to post
+        //meaning the id of user is automatically populated and saved in the user_id column of posts table
+        $user->posts()->create($formData);
+
+        return "Post successfully saved";
     }
 
 }

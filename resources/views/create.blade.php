@@ -12,7 +12,8 @@
 <div class="container">
     <div class="row">
         <h1>Create Post</h1>
-        <form action="" class="form" method="post">
+        <form action="{{ url('posts') }}" class="form" method="post">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label>Title</label>
                 <input type="text" class="form-control" name="title">

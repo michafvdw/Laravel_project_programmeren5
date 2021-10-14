@@ -12,15 +12,19 @@
 <div class="container">
     <div class="row">
         <h1>Create Post</h1>
-        <form action="{{ url('posts') }}" class="form" method="post">
+        <form action="{{ route('posts.store') }}" class="form" method="post">
             {{ csrf_field() }}
             <div class="form-group">
                 <label>Title</label>
                 <input type="text" class="form-control" name="title">
             </div>
             <div class="form-group">
-                <label>Content</label>
-                <textarea class="form-control" name="content" cols="3" rows="5"></textarea>
+                <label>Category</label>
+                <input type="text" class="form-control" name="category">
+            </div>
+            <div class="form-group">
+                <label>body</label>
+                <textarea class="form-control" name="body" cols="3" rows="5"></textarea>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary">Save</button>

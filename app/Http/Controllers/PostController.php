@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -53,6 +54,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request);
         //this gives us the currently logged in user
         $user = $request->user();
 
@@ -63,7 +65,7 @@ class PostController extends Controller
         $formData = $request->all();
 
         // we need a seo bot readable url, this will create a slug based on title
-        $formData['slug'] = str_slug($request->get('title'));
+        $formData['slug'] = Str::slug($request->get('title'));
 
         //this creates posts based on the relation from user to post
         //meaning the id of user is automatically populated and saved in the user_id column of posts table

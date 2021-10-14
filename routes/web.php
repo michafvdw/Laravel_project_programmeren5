@@ -36,9 +36,10 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 //Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 Route::get('/create', [PostController::class, 'create'])->name('posts.create');
 
-Route::post('/store', [PostController::class, 'store'])->name('posts.store');
-Route::post('/update', [PostController::class, 'update'])->name('posts.update');
-Route::get('/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::resource('post', PostController::class);
+//Route::post('/store', [PostController::class, 'store'])->name('posts.store');
+//Route::post('/update', [PostController::class, 'update'])->name('posts.update');
+//Route::get('/edit/{post}', [PostController::class, 'edit'])->name('posts.edit');
 
 
 Auth::routes();

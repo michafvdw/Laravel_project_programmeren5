@@ -4,7 +4,7 @@
 
     <div>
             <a
-                href="{{ route('posts.edit', [$post->slug])}}"
+                href="{{ route('posts.edit',$post, [$post->slug])}}"
                 class="button is-info is-outlined"
             >
                 Edit

@@ -13,7 +13,7 @@
     <div class="row">
         <h1>edit Post</h1>
 
-        <form action="{{ route('post.update', $post) }}" class="form" method="post">
+        <form action="{{ route('posts.update', $post) }}" class="form" method="post">
             {{ csrf_field() }}
             @method('PATCH')
             <div class="form-group">

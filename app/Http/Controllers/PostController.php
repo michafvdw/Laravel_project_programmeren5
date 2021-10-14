@@ -54,10 +54,10 @@ class PostController extends Controller
         if (!$validated) { return redirect()->back();}
         $post->update($request->all());
 
-//        dd($post, $request->all());
+        //dd($post, $request->all());
 
         // Redirect the user to the created post woth an updated notification
-        return "Post successfully edited";
+        return redirect()->back();
 
     }
 

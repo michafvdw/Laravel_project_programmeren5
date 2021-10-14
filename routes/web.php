@@ -33,10 +33,12 @@ Route::get('/posts', [PostController::class, 'index'])->middleware('auth');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 //Route::get('/posts/{category}', [PostController::class, 'category'])->name('posts.category');
 //Route::get('/posts/create', 'PostConroller@create');
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+//Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 Route::get('/create', [PostController::class, 'create'])->name('posts.create');
 
 Route::post('/store', [PostController::class, 'store'])->name('posts.store');
+Route::post('/update', [PostController::class, 'update'])->name('posts.update');
+Route::get('/edit', [PostController::class, 'edit'])->name('posts.edit');
 
 
 Auth::routes();

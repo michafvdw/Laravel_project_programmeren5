@@ -36,6 +36,39 @@ class PostController extends Controller
         return view('posts.post', ['post' => $post]);
     }
 
+    public function edit(Post $post)
+    {
+        return view('/edit', compact('post'));
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        // Validate posted form data
+        $validated = $request->validate([
+            'title' => 'required|string|unique:posts|min:5|max:100',
+            'content' => 'required|string|min:5|max:2000',
+            'category' => 'required|string|max:30'
+        ]);
+
+        // Create slug from title
+        $validated['slug'] = Str::slug($validated['title'], '-');
+
+        // Update Post with validated data
+        $post->update($validated);
+
+        // Redirect the user to the created post woth an updated notification
+        return "Post successfully edited";
+    }
+
+    public function destroy(Post $post)
+    {
+        // Delete the specified Post
+        $post->delete();
+
+        // Redirect user with a deleted notification
+        return "Post successfully saved";
+    }
+
     /*
     public function category(Request $Request, $category)
     {

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\User;
+//use App\Http\Controllers\Auth\LoginController;
+//use AuthenticatesUsers;
+
+//use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -82,8 +87,13 @@ class PostController extends Controller
         //return view('posts.post', ['post' => $post]);
     }*/
 
-    public function create(){
-        return view('create');
+   public function create(){
+
+       $user = \Auth::user();
+        if ($user->logincount > 5) {
+
+            return view('create');
+        }
     }
 
     public function store(Request $request)

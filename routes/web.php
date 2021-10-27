@@ -3,7 +3,11 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
+//use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +22,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::any ( '/search', function () {
+    $q = Request::input ( 'q' );
+    $post = Post::where ( 'title', 'LIKE', '%' . $q . '%' )->orWhere ( 'body', 'LIKE', '%' . $q . '%' )->get ();
+    if (count ( $post ) > 0)
+        return view ( '/posts/search' )->withDetails ( $post )->withQuery ( $q );
+    else
+        return view ( '/posts/search' )->withMessage ( 'No Details found. Try to search again !' );
+} );
 
 
 

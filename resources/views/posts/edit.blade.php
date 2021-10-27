@@ -1,52 +1,49 @@
-@section('title', 'Edit Post')
-@section('action', route('posts.create'))
-@extends('layout')
+<?php
+?>
+<html>
+<head>
+    <title>
+        Edit Post
+    </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1>edit Post</h1>
 
-@section('content')
-
-    <h1 class="title">Edit: {{ $post->title }}</h1>
-
-    <form method="post" action="{{ route('posts.update', [$post->slug]) }}">
-
-        @csrf
-        @method('patch')
-        @include('partials.errors')
-
-        <div class="field">
-            <label class="label">Title</label>
-            <div class="control">
-                <input type="text" name="title" value="{{ $post->title }}" class="input" placeholder="Title" minlength="5" maxlength="100" required />
+        <form action="{{ route('posts.update', $post) }}" class="form" method="post">
+            {{ csrf_field() }}
+            @method('PATCH')
+            <div class="form-group">
+                @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" value="{{$post->title}}">
             </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Content</label>
-            <div class="control">
-                <textarea name="content" class="textarea" placeholder="Content" minlength="5" maxlength="2000" required rows="10">{{ $post->content }}</textarea>
+            <div class="form-group">
+                @error('category')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <label>Category</label>
+                <input type="text" class="form-control" name="category" value="{{$post->category}}">
             </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Category</label>
-            <div class="control">
-                <div class="select">
-                    <select name="category" required>
-                        <option value="" disabled selected>Select category</option>
-                        <option value="html" {{ $post->category === 'html' ? 'selected' : null }}>HTML</option>
-                        <option value="css" {{ $post->category === 'css' ? 'selected' : null }}>CSS</option>
-                        <option value="javascript" {{ $post->category === 'javascript' ? 'selected' : null }}>JavaScript</option>
-                        <option value="php" {{ $post->category === 'php' ? 'selected' : null }}>PHP</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                @error('body')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <label>body</label>
+                <input type="text" class="form-control" name="body" value="{{$post->body}}">
             </div>
-        </div>
+            <div class="form-group">
 
-        <div class="field">
-            <div class="control">
                 <button type="submit" class="button is-link is-outlined">Update</button>
             </div>
-        </div>
 
-    </form>
-
-@endsection
+        </form>
+    </div>
+</div>
+</body>
+</html>

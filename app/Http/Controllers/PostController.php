@@ -33,6 +33,8 @@ class PostController extends Controller
         return view('posts.index', compact('name', 'posts'));
     }
 
+
+
     public function show(Post $post)
     {
         //dd($Request, $id);
@@ -43,8 +45,10 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('/edit', ['post' => $post]);
+        return view('/posts/edit', ['post' => $post]);
     }
+
+
 
     public function update(Request $request, Post $post)
     {
@@ -92,7 +96,7 @@ class PostController extends Controller
        $user = \Auth::user();
         if ($user->logincount > 5) {
 
-            return view('create');
+            return view('posts/create');
         }
     }
 

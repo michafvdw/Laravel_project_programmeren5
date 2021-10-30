@@ -24,6 +24,7 @@
 </head>
 <body>
 
+
 <h1>{{$name}}</h1>
 
 @foreach($posts as $post)

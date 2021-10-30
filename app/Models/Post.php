@@ -14,5 +14,14 @@ class Post extends Model
     /**
      * @var mixed
      */
+
+    public function categories()
+    {
+        return $this->belongsToMany(App\Category::class);
+    }
+
+    public function user(){
+        return $this->belongsTo("User");
+    }
     //private $title;
 }

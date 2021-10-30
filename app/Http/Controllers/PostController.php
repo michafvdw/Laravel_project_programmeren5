@@ -79,17 +79,6 @@ class PostController extends Controller
         return "Post successfully saved";
     }
 
-    /*
-    public function category(Request $Request, $category)
-    {
-        $category = Post::all().category;
-        dd($Request, $category);
-        //dd($post);
-
-
-        return view('posts.category',   ['category' => $category]);
-        //return view('posts.post', ['post' => $post]);
-    }*/
 
    public function create(){
 

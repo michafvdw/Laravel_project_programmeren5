@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 //use Illuminate\Http\Request;
-use App\Models\User;
+//use App\Models\User;
 use App\Models\Post;
 /*
 |--------------------------------------------------------------------------
@@ -39,10 +39,13 @@ Route::get('/about', [AboutController::class, 'index']);
 
 use App\Http\Controllers\UserController;
 
-Route::get('/user/{id}', [UserController::class, 'show']);
+//Route::get('/user/{id}', [UserController::class, 'show']);
+Route::get('/usershow', [UserController::class, 'show']);
 Route::get('/posts', [PostController::class, 'index'])->middleware('auth');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/userpost/{post}', [UserController::class, 'view_post'])->name('users.view_post');
 Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/store', [PostController::class, 'store'])->name('posts.store');
 Route::patch('/update/{post}', [PostController::class, 'update'])->name('posts.update');
 Route::get('/edit/{post}', [PostController::class, 'edit'])->name('posts.edit')->middleware('admin');

@@ -49,6 +49,8 @@ Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/store', [PostController::class, 'store'])->name('posts.store');
 Route::patch('/update/{post}', [PostController::class, 'update'])->name('posts.update');
 Route::get('/edit/{post}', [PostController::class, 'edit'])->name('posts.edit')->middleware('admin');
+Route::get('users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
+Route::patch('users/update/{user}', [UserController::class, 'update'])->name('users.update');
 Route::get('/delete/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 Route::get('/userLogin', [PostController::class, 'userlogin'])->name('posts.userlogin');
 

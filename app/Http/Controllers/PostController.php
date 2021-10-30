@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\LoginAttempt;
 use App\Models\User;
 //use App\Http\Controllers\Auth\LoginController;
 //use AuthenticatesUsers;
 
 //use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -82,11 +84,28 @@ class PostController extends Controller
 
    public function create(){
 
-       $user = \Auth::user();
+        //old deeper validation
+       /*$user = \Auth::user();
         if ($user->logincount > 5) {
 
             return view('posts/create');
-        }
+        }*/
+
+       $userid = auth()->id();
+
+
+       $attempt = DB::table('login_attempts')
+           ->select('user_id')
+           ->where('user_id', '=', $userid)
+           ->get();
+
+       $count = $attempt->count();
+
+       if ($count >= 5) {
+           return view ('posts/create');
+       }else{
+           return redirect ('/index');
+       }
     }
 
     public function store(Request $request)
@@ -109,6 +128,17 @@ class PostController extends Controller
         $user->posts()->create($formData);
 
         return "Post successfully saved";
+    }
+
+    public function userlogin(){
+        $users = auth()->id();
+        //dd($users);
+
+       LoginAttempt::create([
+            'user_id'=>$users
+
+            ]);
+        return redirect('/index');
     }
 
 }

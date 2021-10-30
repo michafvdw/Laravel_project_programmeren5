@@ -50,6 +50,7 @@ Route::post('/store', [PostController::class, 'store'])->name('posts.store');
 Route::patch('/update/{post}', [PostController::class, 'update'])->name('posts.update');
 Route::get('/edit/{post}', [PostController::class, 'edit'])->name('posts.edit')->middleware('admin');
 Route::get('/delete/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::get('/userLogin', [PostController::class, 'userlogin'])->name('posts.userlogin');
 
 
 Auth::routes();

@@ -42,6 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function login_attempts(){
+        return $this->hasMany(LoginAttempt::class);
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);

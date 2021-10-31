@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\LoginAttempt;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -52,9 +51,9 @@ class PostController extends Controller
 
         // Validate posted form data
         $validated = $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-            'category' => 'required'
+            'title' => 'required|max:20',
+            'body' => 'required|max:500',
+            'category' => 'required|max:15'
         ]);
 
         if (!$validated) { return redirect()->back();}
@@ -89,12 +88,10 @@ class PostController extends Controller
        $userid = auth()->id();
 
        //selects the login attempts in database from user with the same ID
-       $attempt = DB::table('login_attempts')
-           ->select('user_id')
-           ->where('user_id', '=', $userid)
-           ->get();
+       $attempt = loginAttempt::where("user_id", "=", $userid)->get();
 
        $count = $attempt->count();
+
 
        //if  user is logged in 5 time or more, they can create a post
        if ($count >= 5) {
@@ -104,11 +101,28 @@ class PostController extends Controller
        }
     }
 
+    //werkt niet
+    /*
+    public function filter(){
+        $userid = auth()->id();
+        $filter = users::where("user_id", "=", $userid)->get();
+
+        return $filter;
+    }*/
+
     public function store(Request $request)
     {
         //dd($request);
         //this gives us the currently logged in user
         $user = $request->user();
+
+        $validated = $request->validate([
+            'title' => 'required|max:20',
+            'body' => 'required|max:500',
+            'category' => 'required|max:15'
+        ]);
+
+        if (!$validated) { return redirect()->back();}
 
         //this fetches all the post data from the form
         //we can post all the data from post and not get an error

@@ -109,21 +109,22 @@ class UserController extends Controller
         $users = User::get();
         return view('users',compact('users'));
     }
-
-
     public function change_status(Request $request, User $user)
     {
-        dd($user);
+        //dd($user);
 
         // Validate posted form data
         $validated = $request->validate([
-            'status' => 'required',
+            'status' => 'integer|required',
         ]);
 
         if (!$validated) { return redirect()->back();}
         $user->update($request->all());
 
+
         return redirect()->back();
 
     }
+
+
 }

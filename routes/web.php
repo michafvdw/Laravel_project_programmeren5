@@ -56,7 +56,7 @@ Route::patch('users/update/{user}', [UserController::class, 'update'])->name('us
 Route::get('/delete/{post}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('admin');
 Route::get('/userLoginCheck', [PostController::class, 'userlogin'])->name('posts.userlogin');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::patch('/change_status', [UserController::class, 'change_status'])->name('users.change_status');
+Route::patch('/change_status/{user}', [UserController::class, 'change_status'])->name('users.change_status');
 
 
 

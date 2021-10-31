@@ -3,11 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\LoginAttempt;
-use App\Models\User;
-//use App\Http\Controllers\Auth\LoginController;
-//use AuthenticatesUsers;
-
-//use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -93,7 +88,7 @@ class PostController extends Controller
 
        $userid = auth()->id();
 
-
+       //selects the login attempts in database from user with the same ID
        $attempt = DB::table('login_attempts')
            ->select('user_id')
            ->where('user_id', '=', $userid)
@@ -101,6 +96,7 @@ class PostController extends Controller
 
        $count = $attempt->count();
 
+       //if  user is logged in 5 time or more, they can create a post
        if ($count >= 5) {
            return view ('posts/create');
        }else{
@@ -130,15 +126,18 @@ class PostController extends Controller
         return "Post successfully saved";
     }
 
+    //function to create login attempt for the authenticated user after user goes to /userlogin route
     public function userlogin(){
         $users = auth()->id();
         //dd($users);
 
        LoginAttempt::create([
             'user_id'=>$users
-
             ]);
-        return redirect('/index');
+       //dd($users);
+        return redirect('/home');
     }
+
+
 
 }

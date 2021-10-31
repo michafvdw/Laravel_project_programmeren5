@@ -23,6 +23,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//route to search for posts based on  given input
+//searched in title and body of a post
 Route::any ( '/search', function () {
     $q = Request::input ( 'q' );
     $post = Post::where ( 'title', 'LIKE', '%' . $q . '%' )->orWhere ( 'body', 'LIKE', '%' . $q . '%' )->get ();
@@ -48,11 +50,14 @@ Route::get('/create', [PostController::class, 'create'])->name('posts.create');
 Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/store', [PostController::class, 'store'])->name('posts.store');
 Route::patch('/update/{post}', [PostController::class, 'update'])->name('posts.update');
-Route::get('/edit/{post}', [PostController::class, 'edit'])->name('posts.edit')->middleware('admin');
+Route::get('/edit/{post}', [PostController::class, 'edit'])->name('posts.edit');
 Route::get('users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
 Route::patch('users/update/{user}', [UserController::class, 'update'])->name('users.update');
-Route::get('/delete/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-Route::get('/userLogin', [PostController::class, 'userlogin'])->name('posts.userlogin');
+Route::get('/delete/{post}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('admin');
+Route::get('/userLoginCheck', [PostController::class, 'userlogin'])->name('posts.userlogin');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::patch('/change_status', [UserController::class, 'change_status'])->name('users.change_status');
+
 
 
 Auth::routes();

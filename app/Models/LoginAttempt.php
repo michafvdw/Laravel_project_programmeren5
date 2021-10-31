@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class LoginAttempt extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'user_id',
         'created_at',

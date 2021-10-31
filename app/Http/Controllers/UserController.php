@@ -12,16 +12,16 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-
-
-
     /**
      * Show the profile for a given user.
      *
      * @param int $id
      * @return \Illuminate\View\View
      */
-    public function show($id)
+
+
+
+    public function show()
     {
         $posts = User::find(1)->posts;
         $name = 'Mijn posts';
@@ -46,6 +46,7 @@ class UserController extends Controller
             //->with(array("user" => $user, "posts" => $posts));
     }
 
+    /*
     public function filter($id)
     {
         $user = User::find($id);
@@ -54,7 +55,7 @@ class UserController extends Controller
         $posts = User::with('posts')->find($id)->$posts;
 
         return view('posts.filter', compact('posts', 'user'));
-    }
+    }*/
 
     public function edit(User $user)
     {
@@ -101,5 +102,28 @@ class UserController extends Controller
          * after everything is done return them pack to /profile/ uri
          **/
         return back();
+    }
+
+    public function index()
+    {
+        $users = User::get();
+        return view('users',compact('users'));
+    }
+
+
+    public function change_status(Request $request, User $user)
+    {
+        dd($user);
+
+        // Validate posted form data
+        $validated = $request->validate([
+            'status' => 'required',
+        ]);
+
+        if (!$validated) { return redirect()->back();}
+        $user->update($request->all());
+
+        return redirect()->back();
+
     }
 }
